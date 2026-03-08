@@ -18,7 +18,7 @@
 
 @layer base {
   * {
-    @apply cursor-none selection:bg-charcoal/10;
+    @apply selection:bg-charcoal/10;
   }
 
   html.lenis {
@@ -40,8 +40,17 @@
 
   body {
     @apply bg-bg-light text-charcoal font-mono antialiased overflow-x-hidden text-[13px] tracking-tight;
-    /* Viewport Glow - The "Blue Thing" on edges */
-    box-shadow: inset 0 0 120px rgba(180, 180, 255, 0.45);
+  }
+
+  /* Always-on Viewport Glow Overlay - subtle blue edge glow */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: inset 0 0 60px rgba(160, 160, 255, 0.35), inset 0 0 20px rgba(180, 180, 255, 0.15);
+    border: 1px solid rgba(180, 180, 255, 0.12);
   }
 
   /* Paper Texture Overlay */
