@@ -1,68 +1,101 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@theme {
+  --color-bg-light: #F3F4EF;
+  --color-bg-dark: #0E1012;
+  --color-lilac: #D1D1F0;
+  --color-charcoal: #1A1A1A;
+  --color-line: rgba(0, 0, 0, 0.05);
+  --color-line-dark: rgba(255, 255, 255, 0.05);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-gothic: "UnifrakturMaguntia", cursive;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=UnifrakturMaguntia&display=swap');
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  * {
+    @apply cursor-none selection:bg-charcoal/10;
   }
-  a:hover {
-    color: #747bff;
+
+  html.lenis {
+    height: auto;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    @apply bg-bg-light text-charcoal font-mono antialiased overflow-x-hidden text-[13px] tracking-tight;
+    /* Viewport Glow - The "Blue Thing" on edges */
+    box-shadow: inset 0 0 120px rgba(180, 180, 255, 0.45);
+  }
+
+  /* Paper Texture Overlay */
+  body::before {
+    content: "";
+    @apply fixed inset-0 pointer-events-none opacity-[0.02] z-[100];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3BaseFilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif font-light tracking-tighter;
+  }
+}
+
+@layer components {
+  .mono-label {
+    @apply font-mono text-[10px] uppercase tracking-[0.1em];
+  }
+
+  .grid-pin {
+    @apply fixed z-[60] p-10;
+  }
+
+  .curtain-bar {
+    @apply fixed left-0 w-full bg-bg-dark z-40 transform-gpu;
+    height: 1px;
+    top: 50%;
+  }
+
+  .nav-pill {
+    @apply absolute -left-1 w-0 h-full bg-lilac/30 rounded-sm -z-10;
+  }
+
+  .nav-item.active .nav-pill {
+    @apply w-[110%];
+  }
+
+  .absolute-center {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .gothic {
+    @apply font-gothic text-lilac leading-none;
+  }
+
+  .btn-minimal {
+    @apply px-6 py-3 border border-charcoal/10 rounded-full hover:bg-charcoal hover:text-white transition-all duration-500 uppercase text-[10px] tracking-widest;
+  }
+
+  .project-reveal-box {
+    @apply relative overflow-hidden aspect-[4/5] bg-neutral-200 rounded-sm;
   }
 }
